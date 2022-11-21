@@ -464,6 +464,7 @@ def replicaset_add(module, client, replica_set, members, arbiter_at_index, proto
                         ("members", members_dict_list),
                         ("settings", settings)])
     try:
+        client = mongo_auth(module, client)
         client["admin"].command('replSetInitiate', conf)
     except Exception as excep:
         raise Exception("Some problem {0} | {1}".format(str(excep), str(conf)))
